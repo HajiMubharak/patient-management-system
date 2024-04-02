@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add test details</title>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename = '/check in-page.css')}}">
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <center><b>{{message}}</b><center>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<body >
+    <table>
+        <tr>
+            <td>
+                <!--HTML form for crud operation-->
+                <form method="POST">
+                <div>
+                    <label for="empCode">Patient Mobile</label><br>
+                    <select name="name" id="name" >
+                        {% for i in data %}
+                        <option>{{i[0]}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                    <div>
+                        <label for="fullName">Test Name</label>
+                        <input type="text" name="tname" required/>
+                    </div>
+                    <div>
+                        <label for="fullName">Test Outcome</label>
+                        <input type="text" name="toutcome" required/>
+                    </div>
+                        <button type="submit">submit</button>
+                </form>
+            </td>
+            <td>
+                <table class="list" id="employeeList">
+                    <thead>
+                        <tr>
+                            <th>Patient Mobile</th>
+                            <th>Patient Name</th>
+                            <th>Test Name</th>
+                            <th>Test Outcome</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in details %}
+                      <tr>
+                          <td>{{i[0]}}</td>
+                          <td>{{i[1]}}</td>
+                          <td>{{i[2]}}</td>
+                          <td>{{i[3]}}</td>
+                          <td>{{i[4]}}</td>
+                      </tr> 
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

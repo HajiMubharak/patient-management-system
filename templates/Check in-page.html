@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Patient Management System</title>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename = '/check in-page.css')}}">
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <center><b>{{message}}</b><center>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<body >
+    <table>
+        <tr>
+            <td>
+                <!--HTML form for crud operation-->
+                <form>
+                <div>
+                    <label for="empCode">Patient Mobile</label>
+                    <select name="name" id="name" >
+                        {% for i in data %}
+                        <option>{{i[1]}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="submit">
+                </div>
+                </form>
+                <form autocomplete="off" action="{{url_for('checkin')}}" method="POST">
+                    <div>
+                        <label for="fullName">Patient Name</label>
+                        <input type="text" name="empCode" id="empCode" value="{{details[0]}}" readonly>
+                    </div>
+                    <div>
+                        <input type="hidden" name="studid"  value="{{details[1]}}" readonly>
+                    </div>
+                        <button type="submit">submit</button>
+                </form>
+            </td>
+            <td>
+                <table class="list" id="employeeList">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Patient Name</th>
+                            <th>Mobile no.</th>
+                            <th>Doctor appointed</th>
+                            <th>Purpose to visit</th>
+                            <th>Appointment time</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in std_records %}
+                      <tr>
+                          <td>{{i[0]}}</td>
+                          <td>{{i[1]}}</td>
+                          <td>{{i[2]}}</td>
+                          {% if i[3]==None %}
+                          <td><a href="{{url_for('doctor',id1=i[0])}}">{{i[3]}}</a></td>
+                          {% else %}
+                          <td>{{i[3]}}</td>
+                          {% endif %}
+                          <td>{{i[4]}}</td>
+                          <td>{{i[5]}}</td>
+                          {% if i[6]==None %}
+                          <td><a href="{{url_for('checkinupdate',id1=i[0])}}">{{i[6]}}</a></td>
+                          {% else %}
+                          <td>{{i[6]}}</td>
+                          {% endif %}
+                          {% if i[7]==None %}
+                          <td><a href="{{url_for('checkoutupdate',id1=i[0])}}">{{i[7]}}</a></td>
+                          {% else %}
+                          <td>{{i[7]}}</td>
+                          {% endif %}
+                          <td>{{i[8]}}</td>
+                      </tr> 
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

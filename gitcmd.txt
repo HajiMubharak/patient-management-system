@@ -1,0 +1,6 @@
+git init
+git add .or filename
+git commit -m "firstcommit"
+git branch -M main
+git remote add origin https://github.com/HajiMubharak/patient-management-system.git
+git push -u origin main
